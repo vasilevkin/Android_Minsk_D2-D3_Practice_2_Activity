@@ -4,4 +4,7 @@
     <string name="title_main_activity">Tasks</string>
     <string name="all_tasks">All</string>
     <string name="favourite">Favourite</string>
+    <string name="new_task_title">Title</string>
+    <string name="new_task_description">Description</string>
+    <string name="add_new_task_save">Save</string>
 </resources>

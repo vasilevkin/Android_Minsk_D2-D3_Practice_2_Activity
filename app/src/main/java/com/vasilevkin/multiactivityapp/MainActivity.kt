@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.TabHost
 import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
@@ -41,11 +42,6 @@ class MainActivity : TabActivity() {
                 ).show()
             }
         }
-
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -75,6 +71,9 @@ class MainActivity : TabActivity() {
         tabSpec.setContent(intent)
         tabHost.addTab(tabSpec)
     }
+
+    fun addNewTask(view: View) {
+        val intent = Intent(this, NewTaskActivity::class.java)
+        startActivity(intent)
+    }
 }
-
-
