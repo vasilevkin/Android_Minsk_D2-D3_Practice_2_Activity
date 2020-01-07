@@ -2,4 +2,6 @@
     <string name="app_name">Multi activity app</string>
     <string name="action_settings">Settings</string>
     <string name="title_main_activity">Tasks</string>
+    <string name="all_tasks">All</string>
+    <string name="favourite">Favourite</string>
 </resources>
