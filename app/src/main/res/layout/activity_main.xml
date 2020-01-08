@@ -1,68 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.drawerlayout.widget.DrawerLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawer_layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:openDrawer="start">
-
-    <include
-        layout="@layout/content_main"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:fitsSystemWindows="true"
-        app:headerLayout="@layout/nav_header"
-        app:menu="@menu/nav_menu"/>
-
-</androidx.drawerlayout.widget.DrawerLayout>
-
-
-
-
-<!--<TabHost xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--<androidx.drawerlayout.widget.DrawerLayout-->
+<!--    xmlns:android="http://schemas.android.com/apk/res/android"-->
 <!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
-<!--    android:id="@android:id/tabhost"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:id="@+id/drawer_layout"-->
 <!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="match_parent">-->
+<!--    android:layout_height="match_parent"-->
+<!--    android:fitsSystemWindows="true"-->
+<!--    tools:openDrawer="start">-->
 
-<!--    <RelativeLayout-->
+<!--    <include-->
+<!--        layout="@layout/content_main"-->
 <!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"/>-->
+
+<!--    <com.google.android.material.navigation.NavigationView-->
+<!--        android:id="@+id/nav_view"-->
+<!--        android:layout_width="wrap_content"-->
 <!--        android:layout_height="match_parent"-->
-<!--        android:orientation="vertical">-->
+<!--        android:layout_gravity="start"-->
+<!--        android:fitsSystemWindows="true"-->
+<!--        app:headerLayout="@layout/nav_header"-->
+<!--        app:menu="@menu/nav_menu"/>-->
 
-<!--        <FrameLayout-->
-<!--            android:id="@android:id/tabcontent"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:layout_above="@android:id/tabs">-->
+<!--</androidx.drawerlayout.widget.DrawerLayout>-->
 
-<!--            <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--                android:id="@+id/fab"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_gravity="bottom|end"-->
-<!--                android:layout_margin="@dimen/fab_margin"-->
-<!--                android:onClick="addNewTask"-->
-<!--                app:srcCompat="@android:drawable/ic_input_add" />-->
 
-<!--        </FrameLayout>-->
 
-<!--        <TabWidget-->
-<!--            android:id="@android:id/tabs"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_alignParentBottom="true" />-->
 
-<!--    </RelativeLayout>-->
+<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@android:id/tabhost"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-<!--</TabHost>-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@android:id/tabcontent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@android:id/tabs">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="@dimen/fab_margin"
+                android:onClick="addNewTask"
+                app:srcCompat="@android:drawable/ic_input_add" />
+
+        </FrameLayout>
+
+        <TabWidget
+            android:id="@android:id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true" />
+
+    </RelativeLayout>
+
+</TabHost>

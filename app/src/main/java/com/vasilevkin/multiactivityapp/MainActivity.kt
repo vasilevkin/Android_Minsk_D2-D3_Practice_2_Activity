@@ -18,13 +18,13 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+//class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+//
+//    lateinit var toolbar: Toolbar
+//    lateinit var drawerLayout: DrawerLayout
+//    lateinit var navView: NavigationView
 
-    lateinit var toolbar: Toolbar
-    lateinit var drawerLayout: DrawerLayout
-    lateinit var navView: NavigationView
-
-//    class MainActivity : TabActivity() {
+    class MainActivity : TabActivity() {
 
 //    val appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
 
@@ -32,46 +32,46 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        toolbar = findViewById(R.id.toolbar)
-        setSupportActionBar(toolbar)
-
-        drawerLayout = findViewById(R.id.drawer_layout)
-        navView = findViewById(R.id.nav_view)
-
-        val toggle = ActionBarDrawerToggle(
-            this, drawerLayout, toolbar, 0, 0
-        )
-        drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
-        navView.setNavigationItemSelectedListener(this)
-
-
-
-
-//        val tabHost = findViewById<TabHost>(android.R.id.tabhost)
-//        if (tabHost != null) {
-//            addTab(
-//                tabHost,
-//                getString(R.string.all_tasks),
-//                getString(R.string.all_tasks),
-//                AllTasksActivity::class.java
-//            )
-//            addTab(
-//                tabHost,
-//                getString(R.string.favourite),
-//                getString(R.string.favourite),
-//                FavouriteActivity::class.java
-//            )
+//        toolbar = findViewById(R.id.toolbar)
+//        setSupportActionBar(toolbar)
 //
-//            tabHost.currentTab = 0
-//            tabHost.setOnTabChangedListener { tabId ->
-//                Toast.makeText(
-//                    applicationContext,
-//                    tabId,
-//                    Toast.LENGTH_SHORT
-//                ).show()
-//            }
-//        }
+//        drawerLayout = findViewById(R.id.drawer_layout)
+//        navView = findViewById(R.id.nav_view)
+//
+//        val toggle = ActionBarDrawerToggle(
+//            this, drawerLayout, toolbar, 0, 0
+//        )
+//        drawerLayout.addDrawerListener(toggle)
+//        toggle.syncState()
+//        navView.setNavigationItemSelectedListener(this)
+
+
+
+
+        val tabHost = findViewById<TabHost>(android.R.id.tabhost)
+        if (tabHost != null) {
+            addTab(
+                tabHost,
+                getString(R.string.all_tasks),
+                getString(R.string.all_tasks),
+                AllTasksActivity::class.java
+            )
+            addTab(
+                tabHost,
+                getString(R.string.favourite),
+                getString(R.string.favourite),
+                FavouriteActivity::class.java
+            )
+
+            tabHost.currentTab = 0
+            tabHost.setOnTabChangedListener { tabId ->
+                Toast.makeText(
+                    applicationContext,
+                    tabId,
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -86,6 +86,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
             R.id.action_settings -> {
+                val intent = Intent(this, SettingsActivity::class.java)
+                startActivity(intent)
+
                 Toast.makeText(applicationContext, "Settings menu is selected", Toast.LENGTH_SHORT)
                     .show()
                 true
@@ -94,18 +97,24 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.nav_tasks -> {
-                Toast.makeText(this, "Tasks clicked", Toast.LENGTH_SHORT).show()
-            }
-            R.id.nav_settings -> {
-                Toast.makeText(this, "Settings clicked", Toast.LENGTH_SHORT).show()
-            }
-        }
-        drawerLayout.closeDrawer(GravityCompat.START)
-        return true
-    }
+//    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+//        when (item.itemId) {
+//            R.id.nav_tasks -> {
+//                val intent = Intent(this, MainActivity::class.java)
+//                startActivity(intent)
+//
+//                Toast.makeText(this, "Tasks clicked", Toast.LENGTH_SHORT).show()
+//            }
+//            R.id.nav_settings -> {
+//                val intent = Intent(this, SettingsActivity::class.java)
+//                startActivity(intent)
+//
+//                Toast.makeText(this, "Settings clicked", Toast.LENGTH_SHORT).show()
+//            }
+//        }
+//        drawerLayout.closeDrawer(GravityCompat.START)
+//        return true
+//    }
 
     private fun addTab(tabHost: TabHost, name: String, indicator: String, className: Class<*>) {
         val tabSpec = tabHost.newTabSpec(name)
