@@ -1,13 +1,11 @@
 package com.vasilevkin.multiactivityapp
 
 
-import android.app.Application
+import android.content.Context
 import android.content.SharedPreferences
+import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import android.R.attr.key
-import android.preference.PreferenceManager
-import android.util.Log
 
 
 enum class SaveLocation {
@@ -29,22 +27,21 @@ enum class SaveLocation {
     }
 }
 
-class TasksRepository private constructor() {
+class TasksRepository private constructor(context: Context) {
 
-    private val prefs : SharedPreferences
-    lateinit var saveTo : SaveLocation
+    private val prefs: SharedPreferences
+    var saveTo: SaveLocation
     private val PREFS_FILENAME = "com.vasilevkin.practice2.prefs"
     val SAVE_SETTING = "com.vasilevkin.practice2.savelocation"
     val SAVE_TASKS_LIST = "com.vasilevkin.practice2.taskslist"
     private var tasksList: ArrayList<Task> = ArrayList()
 
     init {
-        prefs = MyClass.getContext().getSharedPreferences(PREFS_FILENAME, 0)
+        prefs = context.getSharedPreferences(PREFS_FILENAME, 0)
         saveTo = SaveLocation.fromInteger(prefs.getInt(SAVE_SETTING, 0))
     }
 
     fun getAllTasks(): ArrayList<Task> {
-
         val gson = Gson()
         val json = prefs.getString(SAVE_TASKS_LIST, "")
         if ((json == null) or (json == "")) {
@@ -74,7 +71,7 @@ class TasksRepository private constructor() {
         val gson = Gson()
         val json = gson.toJson(tasksList)
 
-        with (prefs.edit()) {
+        with(prefs.edit()) {
             putString(SAVE_TASKS_LIST, json)
             commit()
         }
@@ -105,11 +102,12 @@ class TasksRepository private constructor() {
     companion object {
 
         // For Singleton instantiation
-        @Volatile private var instance: TasksRepository? = null
+        @Volatile
+        private var instance: TasksRepository? = null
 
-        fun getInstance() =
+        fun getInstance(context: Context) =
             instance ?: synchronized(this) {
-                instance ?: TasksRepository().also { instance = it }
+                instance ?: TasksRepository(context).also { instance = it }
             }
     }
 }
