@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -67,7 +68,24 @@ class AllTasksActivity : AppCompatActivity(), AllTasksRecyclerViewAdapter.ItemCl
             Toast.LENGTH_SHORT
         ).show()
 
-//        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        showDialog()
     }
 
+    private fun showDialog() {
+        this?.let {
+            val builder = AlertDialog.Builder(it)
+            builder.setTitle("Action")
+                .setItems(
+                    R.array.actionsArray
+                ) { dialog, which ->
+                    // The 'which' argument contains the index position
+                    // of the selected item
+//                    when (which) {
+//                        0 ->
+//
+//                    }
+                }
+            builder.create()
+        }.show()
+    }
 }
