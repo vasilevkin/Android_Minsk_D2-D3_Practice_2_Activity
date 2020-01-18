@@ -4,7 +4,9 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 
 
@@ -13,6 +15,7 @@ internal constructor(context: Context, private val data: List<Task>) :
     RecyclerView.Adapter<AllTasksRecyclerViewAdapter.ViewHolder>() {
     private val inflater: LayoutInflater
     private var clickListener: ItemClickListener? = null
+    private val con = context
 
     init {
         this.inflater = LayoutInflater.from(context)
@@ -31,6 +34,7 @@ internal constructor(context: Context, private val data: List<Task>) :
 
         holder.titleTextView.text = taskTitle
         holder.descriptionTextView.text = taskDescription
+        holder.detailsImageButton.setOnClickListener(onClickDetailsImageButton(con, position))
     }
 
     // total number of rows
@@ -38,16 +42,27 @@ internal constructor(context: Context, private val data: List<Task>) :
         return data.size
     }
 
+    private fun onClickDetailsImageButton(context: Context, position: Int): View.OnClickListener {
+        return View.OnClickListener { v ->
+            Toast.makeText(
+                context,
+                "onClickDetailsImageButton clicked at $position position",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
 
     // stores and recycles views as they are scrolled off screen
     inner class ViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
         internal var titleTextView: TextView
         internal var descriptionTextView: TextView
+        internal var detailsImageButton: ImageButton
 
         init {
             titleTextView = itemView.findViewById(R.id.task_list_title)
             descriptionTextView = itemView.findViewById(R.id.task_list_description)
+            detailsImageButton = itemView.findViewById(R.id.task_list_details_button)
             itemView.setOnClickListener(this)
         }
 
