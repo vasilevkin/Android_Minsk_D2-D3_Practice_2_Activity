@@ -1,5 +1,6 @@
 package com.vasilevkin.multiactivityapp
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -10,7 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 
-class AllTasksActivity : AppCompatActivity(), AllTasksRecyclerViewAdapter.ItemClickListener {
+class AllTasksActivity : AppCompatActivity(), AllTasksRecyclerViewAdapter.ItemClickListener,
+    AllTasksRecyclerViewAdapter.DetailsButtonClickListener {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var layoutManager: LinearLayoutManager
@@ -41,6 +43,7 @@ class AllTasksActivity : AppCompatActivity(), AllTasksRecyclerViewAdapter.ItemCl
 
         adapter = AllTasksRecyclerViewAdapter(this, tasks)
         adapter.setClickListener(this)
+        adapter.setDetailsClickListener(this)
         recyclerView.adapter = adapter
     }
 
@@ -55,4 +58,16 @@ class AllTasksActivity : AppCompatActivity(), AllTasksRecyclerViewAdapter.ItemCl
 //        intent.putExtra("Task_object", adapter.getItem(position))
         startActivity(intent)
     }
+
+    override fun onDetailsClick(context: Context, position: Int) {
+
+        Toast.makeText(
+            context,
+            "onClickDetailsImageButton clicked at $position position",
+            Toast.LENGTH_SHORT
+        ).show()
+
+//        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
 }
