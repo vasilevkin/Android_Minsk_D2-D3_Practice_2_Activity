@@ -3,6 +3,7 @@ package com.vasilevkin.multiactivityapp
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -49,15 +50,7 @@ class AllTasksActivity : AppCompatActivity(), AllTasksRecyclerViewAdapter.ItemCl
     }
 
     override fun onItemClick(view: View, position: Int) {
-        Toast.makeText(
-            this,
-            "You clicked " + adapter.getItem(position) + " on row number " + position,
-            Toast.LENGTH_SHORT
-        ).show()
-
-        val intent = Intent(this, NewTaskActivity::class.java)
-//        intent.putExtra("Task_object", adapter.getItem(position))
-        startActivity(intent)
+        onChangeTaskClicked(position)
     }
 
     override fun onDetailsClick(context: Context, position: Int) {
@@ -68,10 +61,10 @@ class AllTasksActivity : AppCompatActivity(), AllTasksRecyclerViewAdapter.ItemCl
             Toast.LENGTH_SHORT
         ).show()
 
-        showDialog()
+        showCustomDialog(position)
     }
 
-    private fun showDialog() {
+    private fun showCustomDialog(position: Int) {
         this?.let {
             val builder = AlertDialog.Builder(it)
             builder.setTitle("Action")
@@ -80,12 +73,42 @@ class AllTasksActivity : AppCompatActivity(), AllTasksRecyclerViewAdapter.ItemCl
                 ) { dialog, which ->
                     // The 'which' argument contains the index position
                     // of the selected item
-//                    when (which) {
-//                        0 ->
-//
-//                    }
+                    when (which) {
+                        0 -> onChangeTaskClicked(position)
+                        1 -> onDeleteTaskClicked()
+                        2 -> onAddToFavouritesClicked()
+//                        else -> Log.d("maap", "else")
+                    }
                 }
             builder.create()
         }.show()
     }
+
+    private fun onChangeTaskClicked(position: Int) {
+        val name = object{}.javaClass.enclosingMethod?.name
+        Log.d("maap", "$name")
+
+        Toast.makeText(
+            this,
+            "You clicked " + adapter.getItem(position) + " on row number " + position,
+            Toast.LENGTH_SHORT
+        ).show()
+
+        val intent = Intent(this, NewTaskActivity::class.java)
+//        intent.putExtra("Task_object", adapter.getItem(position))
+        startActivity(intent)
+
+    }
+
+    private fun onDeleteTaskClicked() {
+        val name = object{}.javaClass.enclosingMethod?.name
+        Log.d("maap", "$name")
+
+    }
+    private fun onAddToFavouritesClicked() {
+        val name = object{}.javaClass.enclosingMethod?.name
+        Log.d("maap", "$name")
+
+    }
+
 }
