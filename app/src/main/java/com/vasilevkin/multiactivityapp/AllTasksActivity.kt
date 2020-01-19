@@ -93,8 +93,13 @@ class AllTasksActivity : AppCompatActivity(), AllTasksRecyclerViewAdapter.ItemCl
             Toast.LENGTH_SHORT
         ).show()
 
+        val selectedTask = adapter.getItem(position)
         val intent = Intent(this, NewTaskActivity::class.java)
-//        intent.putExtra("Task_object", adapter.getItem(position))
+        val bundle = Bundle()
+        val parcel = Task(selectedTask.title, selectedTask.description, selectedTask.isFavourite)
+
+        bundle.putParcelable("key", parcel)
+        intent.putExtra("Bundle", bundle)
         startActivity(intent)
     }
 

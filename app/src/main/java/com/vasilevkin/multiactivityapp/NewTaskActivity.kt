@@ -11,29 +11,29 @@ import kotlinx.android.synthetic.main.activity_new_task.*
 
 class NewTaskActivity : AppCompatActivity() {
 
-    companion object {
-        const val EXTRA_TITLE = "title"
-        const val EXTRA_DESCRIPTION = "url"
-
-        fun newIntent(context: Context, task: Task): Intent {
-            val detailIntent = Intent(context, NewTaskActivity::class.java)
-
-            detailIntent.putExtra(EXTRA_TITLE, task.title)
-            detailIntent.putExtra(EXTRA_DESCRIPTION, task.description)
-
-            return detailIntent
-        }
-    }
+//    companion object {
+//        const val EXTRA_TITLE = "title"
+//        const val EXTRA_DESCRIPTION = "url"
+//
+//        fun newIntent(context: Context, task: Task): Intent {
+//            val detailIntent = Intent(context, NewTaskActivity::class.java)
+//
+//            detailIntent.putExtra(EXTRA_TITLE, task.title)
+//            detailIntent.putExtra(EXTRA_DESCRIPTION, task.description)
+//
+//            return detailIntent
+//        }
+//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_task)
 
-        val title = intent.extras?.getString(EXTRA_TITLE)
-        val description = intent.extras?.getString(EXTRA_DESCRIPTION)
+        val bundle = intent.getBundleExtra("Bundle")
+        val objectTask = bundle.getParcelable<Task>("key")
 
-        new_task_title.setText(title)
-        new_task_description.setText(description)
+        new_task_title.setText(objectTask?.title)
+        new_task_description.setText(objectTask?.description)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
