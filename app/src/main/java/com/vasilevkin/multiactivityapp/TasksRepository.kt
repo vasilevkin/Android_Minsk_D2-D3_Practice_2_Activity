@@ -66,6 +66,12 @@ class TasksRepository private constructor(context: Context) {
         saveAllTasks()
     }
 
+    fun changeTaskAt(position: Int, newTask: Task) {
+        tasksList.set(position, newTask)
+
+        saveAllTasks()
+    }
+
     fun deleteTaskAtPosition(position: Int) {
         tasksList.removeAt(position)
         saveAllTasks()

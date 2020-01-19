@@ -8,8 +8,13 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_new_task.*
+import java.text.FieldPosition
 
 class NewTaskActivity : AppCompatActivity() {
+
+    private var isEditMode : Boolean = false
+    var taskPosition: Int? = null
+    var isFavouriteTask: Boolean = false
 
 //    companion object {
 //        const val EXTRA_TITLE = "title"
@@ -32,6 +37,12 @@ class NewTaskActivity : AppCompatActivity() {
         val bundle = intent.getBundleExtra("Bundle")
         val objectTask = bundle.getParcelable<Task>("key")
 
+        if (bundle != null) {
+            isEditMode = true
+            taskPosition = intent.getIntExtra("TaskPosition", 0)
+            isFavouriteTask = objectTask?.isFavourite!!
+        }
+
         new_task_title.setText(objectTask?.title)
         new_task_description.setText(objectTask?.description)
     }
@@ -51,19 +62,29 @@ class NewTaskActivity : AppCompatActivity() {
 //                val intent = Intent(this, SettingsActivity::class.java)
 //                startActivity(intent)
 
-                TasksRepository.getInstance(this).addNewTask(
-                    Task(
-                        new_task_title.text.toString(),
-                        new_task_description.text.toString(),
-                        false
+                if (isEditMode) {
+                    TasksRepository.getInstance(this).changeTaskAt(taskPosition!!,
+                        Task(
+                            new_task_title.text.toString(),
+                            new_task_description.text.toString(),
+                            isFavouriteTask
+                        )
                     )
-                )
-                Toast.makeText(
-                    applicationContext,
-                    "Add new task ${new_task_title.text} - ${new_task_description.text}",
-                    Toast.LENGTH_SHORT
-                )
-                    .show()
+                } else {
+                    TasksRepository.getInstance(this).addNewTask(
+                        Task(
+                            new_task_title.text.toString(),
+                            new_task_description.text.toString(),
+                            false
+                        )
+                    )
+                    Toast.makeText(
+                        applicationContext,
+                        "Add new task ${new_task_title.text} - ${new_task_description.text}",
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
+                }
                 finish()
                 true
             }

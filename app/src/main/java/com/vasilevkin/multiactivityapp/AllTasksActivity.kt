@@ -100,6 +100,7 @@ class AllTasksActivity : AppCompatActivity(), AllTasksRecyclerViewAdapter.ItemCl
 
         bundle.putParcelable("key", parcel)
         intent.putExtra("Bundle", bundle)
+        intent.putExtra("TaskPosition", position)
         startActivity(intent)
     }
 
