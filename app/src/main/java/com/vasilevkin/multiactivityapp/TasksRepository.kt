@@ -66,6 +66,21 @@ class TasksRepository private constructor(context: Context) {
         saveAllTasks()
     }
 
+    fun deleteTaskAtPosition(position: Int) {
+        tasksList.removeAt(position)
+        saveAllTasks()
+    }
+
+    fun setTaskFavourite(position: Int, favourite: Boolean) {
+        var task = tasksList[position]
+        task.isFavourite = favourite
+
+        Log.d("maap", "task = $task")
+
+        tasksList.set(position, task)
+        saveAllTasks()
+    }
+
     private fun saveAllTasks() {
 
         val gson = Gson()

@@ -75,9 +75,8 @@ class AllTasksActivity : AppCompatActivity(), AllTasksRecyclerViewAdapter.ItemCl
                     // of the selected item
                     when (which) {
                         0 -> onChangeTaskClicked(position)
-                        1 -> onDeleteTaskClicked()
-                        2 -> onAddToFavouritesClicked()
-//                        else -> Log.d("maap", "else")
+                        1 -> onDeleteTaskClicked(position)
+                        2 -> onAddToFavouritesClicked(position)
                     }
                 }
             builder.create()
@@ -97,18 +96,22 @@ class AllTasksActivity : AppCompatActivity(), AllTasksRecyclerViewAdapter.ItemCl
         val intent = Intent(this, NewTaskActivity::class.java)
 //        intent.putExtra("Task_object", adapter.getItem(position))
         startActivity(intent)
-
     }
 
-    private fun onDeleteTaskClicked() {
+    private fun onDeleteTaskClicked(position: Int) {
         val name = object{}.javaClass.enclosingMethod?.name
         Log.d("maap", "$name")
 
+        TasksRepository.getInstance(this).deleteTaskAtPosition(position)
+        adapter.notifyDataSetChanged()
     }
-    private fun onAddToFavouritesClicked() {
+
+    private fun onAddToFavouritesClicked(position: Int) {
         val name = object{}.javaClass.enclosingMethod?.name
         Log.d("maap", "$name")
 
+        TasksRepository.getInstance(this).setTaskFavourite(position, true)
+        adapter.notifyDataSetChanged()
     }
 
 }
