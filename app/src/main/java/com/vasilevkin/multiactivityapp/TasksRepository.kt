@@ -60,6 +60,33 @@ class TasksRepository private constructor(context: Context) {
         return tasksList
     }
 
+    fun getFavouriteTasksOnly(): ArrayList<Task> {
+        val gson = Gson()
+        val json = prefs.getString(SAVE_TASKS_LIST, "")
+        if ((json == null) or (json == "")) {
+            return ArrayList<Task>()
+        }
+//        val obj = gson.fromJson<ArrayList<Task>>(json, ::class.java!!)
+
+        val type = object : TypeToken<ArrayList<Task>>() {}.type
+        tasksList = gson.fromJson(json, type)
+
+//        tasksList.add(Task("First", "description 1", 1))
+//        tasksList.add(Task("Second", "description 2",2))
+//
+        Log.d("maap", "tasksList = $tasksList")
+
+        val favouriteTasksList = ArrayList<Task>()
+
+        tasksList.forEach { task ->
+            if (task.isFavourite) {
+                favouriteTasksList.add(task)
+            }
+        }
+
+        return favouriteTasksList
+    }
+
     fun addNewTask(task: Task) {
         tasksList.add(task)
 

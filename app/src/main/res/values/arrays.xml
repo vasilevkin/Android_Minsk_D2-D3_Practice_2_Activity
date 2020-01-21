@@ -5,4 +5,10 @@
         <item>Delete task</item>
         <item>Add to favourites</item>
     </array>
+
+    <array name="favouriteActionsArray">
+        <item>Change task</item>
+        <item>Delete task</item>
+        <item>Remove from favourites</item>
+    </array>
 </resources>
