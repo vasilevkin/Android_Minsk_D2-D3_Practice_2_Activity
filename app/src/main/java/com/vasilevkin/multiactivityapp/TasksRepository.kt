@@ -30,15 +30,13 @@ enum class SaveLocation {
 class TasksRepository private constructor(context: Context) {
 
     private val prefs: SharedPreferences
-    var saveTo: SaveLocation
     private val PREFS_FILENAME = "com.vasilevkin.practice2.prefs"
-    val SAVE_SETTING = "com.vasilevkin.practice2.savelocation"
+    val SAVE_LOCATION_SETTING = "com.vasilevkin.practice2.savelocation"
     val SAVE_TASKS_LIST = "com.vasilevkin.practice2.taskslist"
     private var tasksList: ArrayList<Task> = ArrayList()
 
     init {
         prefs = context.getSharedPreferences(PREFS_FILENAME, 0)
-        saveTo = SaveLocation.fromInteger(prefs.getInt(SAVE_SETTING, 0))
     }
 
     fun getAllTasks(): ArrayList<Task> {
@@ -132,19 +130,15 @@ class TasksRepository private constructor(context: Context) {
 //        }
     }
 
+    fun getSaveLocation() : SaveLocation {
+        return SaveLocation.fromInteger(prefs.getInt(SAVE_LOCATION_SETTING, 0))
+    }
+
     fun setSaveLocation(location: SaveLocation) {
-
-
-//        when (location) {
-//            SaveLocation.SHARED_PREF -> {
-//                with (prefs.edit()) {
-//                    putString(SAVE_SETTING, SaveLocation.SHARED_PREF.toString())
-//                    putInt(getString(R.string.saved_high_score_key), newHighScore)
-//                    commit()
-//                }
-//            }
-//        }
-
+        with(prefs.edit()) {
+            putInt(SAVE_LOCATION_SETTING, location.ordinal)
+            commit()
+        }
     }
 
     companion object {
