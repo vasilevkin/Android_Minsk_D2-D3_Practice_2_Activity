@@ -27,6 +27,11 @@ enum class SaveLocation {
     }
 }
 
+interface Storage {
+    fun saveAllTasks()
+    fun getAllTasks()
+}
+
 class TasksRepository private constructor(context: Context) {
 
     private val prefs: SharedPreferences
